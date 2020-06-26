@@ -10,6 +10,10 @@ def index():
         {
             'author': {'username': 'John'},
             'body': 'The Avengers movie was so cool!'
+        },
+        {
+            'author': {'username': 'Susan'},
+            'body': 'Beautiful day in Portland!'
         }
     ]
     return render_template('index.html', title='Home', user=user, posts=posts)
