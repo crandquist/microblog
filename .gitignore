@@ -5,3 +5,4 @@ venv
 .flaskenv
 Pipfile
 Pipfile.lock
+logs/
