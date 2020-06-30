@@ -72,7 +72,7 @@ def user(username):
         {'author': user, 'body': 'Test post #1'},
         {'author': user, 'body': 'Test post #2'}
     ]
-    form = EmptyForm
+    form = EmptyForm()
     return render_template('user.html', user=user, posts=posts, form=form)
 
 
@@ -102,7 +102,7 @@ def edit_profile():
 @app.route('/follow/<username>', methods=['POST'])
 @login_required
 def follow(username):
-    form = EmptyForm
+    form = EmptyForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=username).first()
         if user is None:
@@ -114,6 +114,7 @@ def follow(username):
         current_user.follow(user)
         db.session.commit()
         flash('You are following {}!'.format(username))
+        return redirect(url_for('user', username=username))
     else:
         return redirect(url_for('index'))
 
@@ -121,7 +122,7 @@ def follow(username):
 @app.route('/unfollow/<username>', methods=['POST'])
 @login_required
 def unfollow(username):
-    form = EmptyForm
+    form = EmptyForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=username).first()
         if user is None:
@@ -133,5 +134,6 @@ def unfollow(username):
         current_user.unfollow(user)
         db.session.commit()
         flash('You are no longer following {}'.format(username))
+        return redirect(url_for('user', username=username))
     else:
         return redirect(url_for('index'))
