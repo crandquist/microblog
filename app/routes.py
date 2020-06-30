@@ -13,21 +13,12 @@ from app.models import User, Post
 def index():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(body=form.body.data, author=current_user)
+        post = Post(body=form.post.data, author=current_user)
         db.session.add(post)
         db.session.commit()
         flash('Your post is now live!')
         return redirect(url_for('index'))
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'The Avengers movie was so cool!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'Beautiful day in Portland!'
-        }
-    ]
+    posts = current_user.followed_posts().all()
     return render_template('index.html', title='Home Page', form=form, posts=posts)
 
 
@@ -143,3 +134,10 @@ def unfollow(username):
         return redirect(url_for('user', username=username))
     else:
         return redirect(url_for('index'))
+
+
+@app.route('/explore')
+@login_required
+def explore():
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template('index.html', title='Explore', posts=posts)
