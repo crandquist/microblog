@@ -7,3 +7,4 @@ Pipfile
 Pipfile.lock
 logs/
 *.code-workspace
+messages.pot
