@@ -8,3 +8,4 @@ Pipfile.lock
 logs/
 *.code-workspace
 messages.pot
+*.env
