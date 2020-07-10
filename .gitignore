@@ -42,3 +42,4 @@ microblog.log*
 .vscode/
 *.code-workspace
 microblog.env
+*.rdb
