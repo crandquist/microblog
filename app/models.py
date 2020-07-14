@@ -150,7 +150,7 @@ class User(UserMixin, db.Model):
         db.session.add(task)
         return task
 
-    def get_task_in_progress(self):
+    def get_tasks_in_progress(self):
         return Task.query.filter_by(user=self, complete=False).all()
 
     def get_task_in_progress(self, name):
